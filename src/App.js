@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import logo from "./logo.svg";
+import axios from "axios";
+import "./App.css";
 
 function App() {
+  const [counter, setCounter] = useState(0);
+  const [quote, setQuote] = useState("");
+
+  console.log("WHAT IS COUNT:", counter); // 0 -> 1 -> 2
+
+  const response = axios.get("https://api.kanye.rest/");
+  response.then((json) => {
+    setQuote(json.data.quote);
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>{quote}</p>
+      <h1>{counter}</h1>
+      <button onClick={() => setCounter(counter + 1)}>+</button>
     </div>
   );
 }
