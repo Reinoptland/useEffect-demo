@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import axios from "axios";
 import "./App.css";
 
@@ -11,10 +10,12 @@ function App() {
 
   useEffect(() => {
     // het "effect"
-    const response = axios.get("https://api.kanye.rest/");
-    response.then((json) => {
-      setQuote(json.data.quote);
-    });
+    async function fetchQuote() {
+      const response = await axios.get("https://api.kanye.rest/");
+      setQuote(response.data.quote);
+    }
+
+    fetchQuote();
   }, []); // wanneer moet dit effect opnieuw worden uitgevoerd?
 
   return (
