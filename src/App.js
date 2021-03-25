@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import axios from "axios";
 import "./App.css";
@@ -9,10 +9,13 @@ function App() {
 
   console.log("WHAT IS COUNT:", counter); // 0 -> 1 -> 2
 
-  const response = axios.get("https://api.kanye.rest/");
-  response.then((json) => {
-    setQuote(json.data.quote);
-  });
+  useEffect(() => {
+    // het "effect"
+    const response = axios.get("https://api.kanye.rest/");
+    response.then((json) => {
+      setQuote(json.data.quote);
+    });
+  }, []); // wanneer moet dit effect opnieuw worden uitgevoerd?
 
   return (
     <div className="App">
